@@ -38,23 +38,22 @@ public class VehicleBody3D : MonoBehaviour {
   }
 
   [Header("Motion Controls")] [SerializeField]
-  private float engineForce = 0f;
+  private float engineForce;
 
-  [SerializeField] private float brake = 0f;
-  [SerializeField] private float steering = 0f;
+  [SerializeField] private float brake;
+  [SerializeField] private float steering;
 
   [Header("Physics Settings")] [SerializeField]
   private LayerMask collisionMask = -1;
 
   private Rigidbody _rigidBody;
-  public List<VehicleWheel3D> wheels = new List<VehicleWheel3D>();
+  public List<VehicleWheel3D> wheels = new();
 
-  private List<Vector3> _forwardWS = new List<Vector3>();
-  private List<Vector3> _axle = new List<Vector3>();
-  private List<float> _forwardImpulse = new List<float>();
-  private List<float> _sideImpulse = new List<float>();
+  private List<Vector3> _forwardWS = new();
+  private List<Vector3> _axle = new();
+  private List<float> _forwardImpulse = new();
+  private List<float> _sideImpulse = new();
 
-  private float _currentVehicleSpeedKmHour = 0f;
   private const float SideFrictionStiffness = 1.0f;
 
 
