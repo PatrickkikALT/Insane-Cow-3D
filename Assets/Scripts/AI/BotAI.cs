@@ -1,73 +1,70 @@
 using UnityEngine;
 
 [RequireComponent(typeof(VehicleBody3D))]
-public class VehicleAI : MonoBehaviour {
-  [Header("AI Behavior")] [SerializeField]
-  private float moveForwardChance = 0.7f;
+public class BotAI : MonoBehaviour {
+  [Header("Raycast Settings")] public float rayDistance = 5f;
+  public LayerMask detectionLayer = -1;
 
-  [SerializeField] private float minThrottle = 0.3f;
-  [SerializeField] private float maxThrottle = 1.0f;
-  [SerializeField] private float maxEngineForce = 2000f;
+  [Header("Ray Angles (degrees)")] public float nearSideAngle = 15f;
+  public float farSideAngle = 45f;
 
-  [Header("Steering Behavior")] [SerializeField]
-  private float steeringChangeInterval = 1f;
-
-  [SerializeField] private float maxSteeringAngle = 30f;
-
-  [Header("Randomness")] [SerializeField]
-  private float throttleChangeInterval = 2f;
-
-  [SerializeField] private float stopDuration = 1f;
+  [Header("Debug Visualization")] public bool showDebugRays = true;
 
   private VehicleBody3D _vehicle;
-  private float _currentThrottle;
-  private float _currentSteering;
 
-  private float _steeringTimer;
-  private float _throttleTimer;
   private void Start() {
     _vehicle = GetComponent<VehicleBody3D>();
-
-    // Start with random values
-    RandomizeSteering();
-    RandomizeThrottle();
   }
 
-  private void Update() {
-    _steeringTimer += Time.deltaTime;
-    if (_steeringTimer >= steeringChangeInterval) {
-      _steeringTimer = 0f;
-      RandomizeSteering();
+  private void FixedUpdate() {
+    bool charge = CastRay(0f);
+    bool left = CastRay(nearSideAngle);
+    bool right = CastRay(-nearSideAngle);
+    bool cleft = CastRay(farSideAngle);
+    bool cright = CastRay(-farSideAngle);
+
+    float steering = 0f;
+    float engineForce = 1500f;
+
+    if (charge) {
+      steering = 0f;
     }
-    
-    _throttleTimer += Time.deltaTime;
-    if (_throttleTimer >= throttleChangeInterval) {
-      _throttleTimer = 0f;
-      RandomizeThrottle();
+    else if (cleft) {
+      steering = 1f;
     }
-    
-    float engineForce = _currentThrottle * maxEngineForce;
-    _vehicle.SetEngineForce(engineForce);
-
-    float steeringAngle = _currentSteering * maxSteeringAngle * Mathf.Deg2Rad;
-    _vehicle.SetSteering(steeringAngle);
-
-    _vehicle.SetBrake(0f);
-  }
-
-  private void RandomizeSteering() {
-    _currentSteering = Random.Range(-1f, 1f);
-    
-  }
-
-  private void RandomizeThrottle() {
-    if (Random.value < moveForwardChance) {
-      _currentThrottle = Random.Range(minThrottle, maxThrottle);
-      _throttleTimer = -throttleChangeInterval;
+    else if (cright) {
+      steering = -1f;
+    }
+    else if (left) {
+      steering = 0.3f;
+    }
+    else if (right) {
+      steering = -0.3f;
     }
     else {
-      _currentThrottle = 0f;
-      _throttleTimer = -stopDuration;
+      steering = 0f;
     }
+
+    _vehicle.Steering = steering;
+    _vehicle.EngineForce = engineForce;
+  }
+
+  private bool CastRay(float angleOffset) {
+    Vector3 direction = Quaternion.Euler(0, angleOffset, 0) * transform.forward;
+    Ray ray = new Ray(transform.position, direction);
+
+    if (showDebugRays) {
+      Color rayColor = Physics.Raycast(ray, rayDistance, detectionLayer) ? Color.red : Color.green;
+      Debug.DrawRay(transform.position, direction * rayDistance, rayColor);
+    }
+
+    return Physics.Raycast(ray, rayDistance, detectionLayer);
+  }
+
+  private void OnDrawGizmos() {
+    if (!showDebugRays) return;
+
+    Gizmos.color = Color.cyan;
+    Gizmos.DrawWireSphere(transform.position, 0.2f);
   }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,13 +57,24 @@ public class VehicleBody3D : MonoBehaviour {
   private List<float> _sideImpulse = new();
 
   private const float SideFrictionStiffness = 1.0f;
-
+  
+  public GameObject mesh;
+  public delegate void HitEvent(GameObject hit);
+  public HitEvent onHit;
+  
+  public Animator dead;
 
   private void Start() {
     _rigidBody = GetComponent<Rigidbody>();
 
     foreach (VehicleWheel3D wheel in wheels) {
       wheel.Initialize(this);
+    }
+  }
+
+  public void OnCollisionEnter(Collision other) {
+    if (other.gameObject.CompareTag("Entity")) {
+      onHit?.Invoke(other.gameObject);
     }
   }
 
@@ -73,7 +86,6 @@ public class VehicleBody3D : MonoBehaviour {
 
     if (Mathf.Abs(zRotation) >= 89f) {
       print("Dead");
-      Destroy(gameObject);
     }
     float deltaTime = Time.fixedDeltaTime;
 
@@ -459,5 +471,13 @@ public class VehicleBody3D : MonoBehaviour {
         Gizmos.DrawWireSphere(wheel.ContactPointWS, 0.1f);
       }
     }
+  }
+
+  private IEnumerator DeathAnimation() {
+    dead.gameObject.SetActive(true);
+    dead.Play(0);
+    mesh.SetActive(false);
+    yield return new WaitForSeconds(1);
+    Destroy(gameObject);
   }
 }

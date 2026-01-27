@@ -2,19 +2,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(VehicleBody3D))]
-public class VehicleController : MonoBehaviour
-{
-  [Header("Input Settings")]
-  [SerializeField] private float maxEngineForce = 2000f;
-  [SerializeField] private float maxBrakeForce = 100f;
-  [SerializeField] private float maxSteeringAngle = 30f;
+public class VehicleController : MonoBehaviour {
+  [Header("Input Settings")] 
+  private float _maxEngineForce = 2000f;
+  private float _maxBrakeForce = 100f;
+  private float _maxSteeringAngle = 30f;
   private float _throttle;
   private float _steer;
   private bool _handbrake;
-  private VehicleBody3D vehicle;
+  private VehicleBody3D _vehicle;
 
   private void Start() {
-    vehicle = GetComponent<VehicleBody3D>();
+    _vehicle = GetComponent<VehicleBody3D>();
+  }
+
+  public void SetStats(MaskStat stats) {
+    _maxEngineForce = stats.maxEngineForce;
+    _maxBrakeForce = stats.maxBrakeForce;
+    _maxSteeringAngle = stats.maxSteeringAngle;
+    GetComponent<Rigidbody>().mass = stats.rigidbodyMass;
   }
 
   public void Throttle(InputAction.CallbackContext ctx) {
@@ -30,13 +36,13 @@ public class VehicleController : MonoBehaviour
   }
 
   private void Update() {
-    float engineForce = _throttle * maxEngineForce;
-    vehicle.SetEngineForce(engineForce);
-    
-    float steeringAngle = _steer * maxSteeringAngle * Mathf.Deg2Rad;
-    vehicle.SetSteering(steeringAngle);
-    
-    float brakeForce = _handbrake ? maxBrakeForce : 0f;
-    vehicle.SetBrake(brakeForce);
+    float engineForce = _throttle * _maxEngineForce;
+    _vehicle.SetEngineForce(engineForce);
+
+    float steeringAngle = _steer * _maxSteeringAngle * Mathf.Deg2Rad;
+    _vehicle.SetSteering(steeringAngle);
+
+    float brakeForce = _handbrake ? _maxBrakeForce : 0f;
+    _vehicle.SetBrake(brakeForce);
   }
 }
