@@ -78,6 +78,11 @@ public class VehicleBody3D : MonoBehaviour {
     }
   }
 
+  public void Death() {
+    StartCoroutine(DeathAnimation());
+    print("Dead");
+  }
+
   private void FixedUpdate() {
     float zRotation = transform.eulerAngles.z;
     if (zRotation > 180f) {
@@ -85,7 +90,7 @@ public class VehicleBody3D : MonoBehaviour {
     }
 
     if (Mathf.Abs(zRotation) >= 89f) {
-      print("Dead");
+      Death();
     }
     float deltaTime = Time.fixedDeltaTime;
 

@@ -23,23 +23,23 @@ public class BotAI : MonoBehaviour {
     bool cleft = CastRay(farSideAngle);
     bool cright = CastRay(-farSideAngle);
 
-    float steering = 0f;
-    float engineForce = 1500f;
+    float steering;
+    float engineForce = -1000f;
 
     if (charge) {
       steering = 0f;
     }
     else if (cleft) {
-      steering = 1f;
+      steering = 0.5f;
     }
     else if (cright) {
-      steering = -1f;
+      steering = -0.5f;
     }
     else if (left) {
-      steering = 0.3f;
+      steering = 0.2f;
     }
     else if (right) {
-      steering = -0.3f;
+      steering = -0.2f;
     }
     else {
       steering = 0f;
