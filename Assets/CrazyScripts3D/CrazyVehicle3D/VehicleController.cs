@@ -38,12 +38,18 @@ public class VehicleController : NetworkBehaviour {
 
   private void Update() {
     if (!IsOwner) return;
-
+    
+    ApplyVehicleInput(_throttle, _steer, _handbrake);
+    
     UpdateInputServerRpc(_throttle, _steer, _handbrake);
   }
 
   [ServerRpc]
   private void UpdateInputServerRpc(float throttle, float steer, bool handbrake) {
+    ApplyVehicleInput(throttle, steer, handbrake);
+  }
+
+  private void ApplyVehicleInput(float throttle, float steer, bool handbrake) {
     float engineForce = throttle * _maxEngineForce;
     _vehicle.SetEngineForce(engineForce);
 

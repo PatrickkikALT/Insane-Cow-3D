@@ -69,10 +69,13 @@ public class VehicleBody3D : NetworkBehaviour {
 
   public override void OnNetworkSpawn() {
     _rigidBody = GetComponent<Rigidbody>();
-    _rigidBody.isKinematic = !IsServer;
+
+    // Owner predicts physics locally; Server simulates authoritatively.
+    // Non-owners (other players) set kinematic to just follow the network transform.
+    _rigidBody.isKinematic = !IsServer && !IsOwner;
 
     foreach (VehicleWheel3D wheel in wheels) {
-      if (wheel != null) wheel.Initialize(this);
+      if (wheel) wheel.Initialize(this);
     }
     
     camera.gameObject.SetActive(IsOwner);
@@ -94,7 +97,7 @@ public class VehicleBody3D : NetworkBehaviour {
   }
 
   private void FixedUpdate() {
-    if (!IsSpawned || !IsServer) return;
+    if (!IsSpawned || (!IsServer && !IsOwner)) return;
 
     float zRotation = transform.eulerAngles.z;
     if (zRotation > 180f) {
