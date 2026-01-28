@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class ChickenMask : Mask {
@@ -6,7 +7,7 @@ public class ChickenMask : Mask {
     if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
       collision.TryGetComponent(out VehicleController controller);
       controller.SetStats(stats);
-      Camera.main.transform.localPosition = stats.cameraPosition;
+      NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<VehicleBody3D>().camera.transform.localPosition = stats.cameraPosition;
     }
   }
   

@@ -65,7 +65,7 @@ public class VehicleBody3D : NetworkBehaviour {
   
   public GameObject dead;
 
-  [SerializeField] private Camera camera;
+  public Camera camera;
 
   public override void OnNetworkSpawn() {
     _rigidBody = GetComponent<Rigidbody>();
