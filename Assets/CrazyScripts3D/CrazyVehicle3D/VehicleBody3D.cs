@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody))]
-public class VehicleBody3D : MonoBehaviour {
+public class VehicleBody3D : NetworkBehaviour {
   private struct VehicleWheelContactPoint {
     public Rigidbody body1;
     public Vector3 frictionPositionWorld;
@@ -64,30 +65,42 @@ public class VehicleBody3D : MonoBehaviour {
   
   public GameObject dead;
 
-  private void Start() {
+  [SerializeField] private Camera camera;
+
+  public override void OnNetworkSpawn() {
     _rigidBody = GetComponent<Rigidbody>();
+    _rigidBody.isKinematic = !IsServer;
 
     foreach (VehicleWheel3D wheel in wheels) {
-      wheel.Initialize(this);
+      if (wheel != null) wheel.Initialize(this);
+    }
+
+    if (IsOwner) {
+      camera.gameObject.SetActive(true);
     }
   }
 
   public void OnCollisionEnter(Collision other) {
+    if (!IsServer) return; // Only trigger hit events on the server
     if (other.gameObject.CompareTag("Entity")) {
       onHit?.Invoke(other.gameObject);
     }
   }
 
   public void Death() {
-    Instantiate(dead, transform.position, transform.rotation);
-    Destroy(gameObject);
+    if (!IsServer) return;
+    
+    Instantiate(dead, transform.position + transform.up, transform.rotation);
+    GetComponent<NetworkObject>().Despawn();
     print("Dead");
   }
 
   private void FixedUpdate() {
+    if (!IsSpawned || !IsServer) return;
+
     float zRotation = transform.eulerAngles.z;
     if (zRotation > 180f) {
-      zRotation -= 360f;
+      zRotation -= 360f;  
     }
 
     if (Mathf.Abs(zRotation) >= 89f) {

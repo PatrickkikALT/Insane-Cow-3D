@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 [RequireComponent(typeof(VehicleBody3D))]
-public class VehicleController : MonoBehaviour {
+public class VehicleController : NetworkBehaviour {
   [Header("Input Settings")] 
   private float _maxEngineForce = 2000f;
   private float _maxBrakeForce = 100f;
@@ -36,13 +37,20 @@ public class VehicleController : MonoBehaviour {
   }
 
   private void Update() {
-    float engineForce = _throttle * _maxEngineForce;
+    if (!IsOwner) return;
+
+    UpdateInputServerRpc(_throttle, _steer, _handbrake);
+  }
+
+  [ServerRpc]
+  private void UpdateInputServerRpc(float throttle, float steer, bool handbrake) {
+    float engineForce = throttle * _maxEngineForce;
     _vehicle.SetEngineForce(engineForce);
 
-    float steeringAngle = _steer * _maxSteeringAngle * Mathf.Deg2Rad;
+    float steeringAngle = steer * _maxSteeringAngle * Mathf.Deg2Rad;
     _vehicle.SetSteering(steeringAngle);
 
-    float brakeForce = _handbrake ? _maxBrakeForce : 0f;
+    float brakeForce = handbrake ? _maxBrakeForce : 0f;
     _vehicle.SetBrake(brakeForce);
   }
 }

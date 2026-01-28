@@ -10,10 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6944564062380670357}
   - component: {fileID: 466794336629242454}
+  - component: {fileID: 330741268818369316}
   - component: {fileID: 4112609567026001470}
   - component: {fileID: 4885811460047650822}
   - component: {fileID: 3275307578096037301}
   - component: {fileID: 4499963254113492740}
+  - component: {fileID: 8830062610915605878}
+  - component: {fileID: 614144234068343010}
   m_Layer: 3
   m_Name: Player
   m_TagString: Entity
@@ -66,6 +69,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &330741268818369316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239541258085826158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 3877663303
+  InScenePlacedSourceGlobalObjectIdHash: 3877663303
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &4112609567026001470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8c32698837abf409fa4644e65de6ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleBody3D
+  ShowTopMostFoldoutHeaderGroup: 1
   engineForce: 0
   brake: 0.16
   steering: 0
@@ -91,6 +120,7 @@ MonoBehaviour:
   - {fileID: 6504882560509831401}
   mesh: {fileID: 3176299778933379971}
   dead: {fileID: 4370184857602522169, guid: 3bcd359523265fd47aec80ec95c1d3e5, type: 3}
+  camera: {fileID: 1004510719162197766}
 --- !u!114 &4885811460047650822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9209bf61fc2768649af0e53292a84d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VehicleController
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!114 &3275307578096037301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +233,69 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.3, z: 3.3116345}
   m_Center: {x: 0, y: 0.3, z: 0.00030183792}
+--- !u!114 &8830062610915605878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239541258085826158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkTransform
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &614144234068343010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239541258085826158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkRigidbody
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 1
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &1679198849092027858
 GameObject:
   m_ObjectHideFlags: 0

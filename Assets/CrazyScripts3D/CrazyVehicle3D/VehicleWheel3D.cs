@@ -1,3 +1,5 @@
+using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class VehicleWheel3D : MonoBehaviour {
@@ -52,6 +54,7 @@ public class VehicleWheel3D : MonoBehaviour {
     _body = vehicleBody;
     _localPosition = vehicleBody.transform.InverseTransformPoint(transform.position);
   }
+  
 
   public void UpdateVisualTransform() {
     if (!wheelMesh) return;

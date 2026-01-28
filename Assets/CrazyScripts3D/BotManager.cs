@@ -1,17 +1,31 @@
 using System;
 using UnityEngine;
+using Unity.Netcode;
 
-public class BotManager : MonoBehaviour {
+public class BotManager : NetworkBehaviour {
   [Range(0, 100)]
   [SerializeField] private int amountOfBots;
 
   [SerializeField] private GameObject botPrefab;
   [SerializeField] private SpawnBox spawnBox;
 
-  public void Start() {
-    for (int i = 0; i <= amountOfBots; i++) {
-      GameObject obj = Instantiate(botPrefab, spawnBox.GetRandomPosition(transform.position), Quaternion.identity.Rand(false, true, false));
-      obj.name = $"Bot_{i}";
+  public override void OnNetworkSpawn() {
+    if (!IsServer) return;
+
+    for (int i = 0; i < amountOfBots; i++) {
+      SpawnBot(i);
+    }
+  }
+
+  private void SpawnBot(int index) {
+    Vector3 pos = spawnBox.GetRandomPosition(transform.position);
+    Quaternion rot = Quaternion.identity.Rand(false, true, false);
+    
+    GameObject obj = Instantiate(botPrefab, pos, rot);
+    obj.name = $"Bot_{index}";
+    NetworkObject netObj = obj.GetComponent<NetworkObject>();
+    if (netObj) {
+      netObj.Spawn();
     }
   }
 
