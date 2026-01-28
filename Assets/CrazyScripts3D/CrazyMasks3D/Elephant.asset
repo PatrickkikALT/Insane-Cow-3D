@@ -16,4 +16,4 @@ MonoBehaviour:
   maxBrakeForce: 250
   maxSteeringAngle: 45
   cameraPosition: {x: 0, y: 5, z: -5}
-  rigidbodyMass: 300
+  rigidbodyMass: 700
