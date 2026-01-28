@@ -2620,6 +2620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65295ff4f257f38449d172ca0591c428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  ShowTopMostFoldoutHeaderGroup: 1
   amountOfBots: 100
   botPrefab: {fileID: 6775203678248194239, guid: 7520d42c33c6f6e49941f2265bd38a55, type: 3}
   spawnBox:
@@ -22351,6 +22352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 330741268818369316, guid: d52a5c48ed0feb44f8dda060380e4370, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2015985183
+      objectReference: {fileID: 0}
     - target: {fileID: 1239541258085826158, guid: d52a5c48ed0feb44f8dda060380e4370, type: 3}
       propertyPath: m_Name
       value: Player
