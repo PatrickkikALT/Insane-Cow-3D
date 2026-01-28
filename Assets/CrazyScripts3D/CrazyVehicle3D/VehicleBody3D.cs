@@ -74,10 +74,8 @@ public class VehicleBody3D : NetworkBehaviour {
     foreach (VehicleWheel3D wheel in wheels) {
       if (wheel != null) wheel.Initialize(this);
     }
-
-    if (IsOwner) {
-      camera.gameObject.SetActive(true);
-    }
+    
+    camera.gameObject.SetActive(IsOwner);
   }
 
   public void OnCollisionEnter(Collision other) {
