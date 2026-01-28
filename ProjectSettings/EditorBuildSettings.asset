@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/CrazyMainMenu3D.unity
+    guid: bb7de4d8f6a28b248941be498f0a54bf
+  - enabled: 1
+    path: Assets/Scenes/CrazyLobby3D.unity
+    guid: a9046960e12caff40a31192073a86b1f
+  - enabled: 1
     path: Assets/Scenes/CrazyGameScene3D.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

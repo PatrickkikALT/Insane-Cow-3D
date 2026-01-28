@@ -62,7 +62,7 @@ public class VehicleBody3D : MonoBehaviour {
   public delegate void HitEvent(GameObject hit);
   public HitEvent onHit;
   
-  public Animator dead;
+  public GameObject dead;
 
   private void Start() {
     _rigidBody = GetComponent<Rigidbody>();
@@ -79,7 +79,8 @@ public class VehicleBody3D : MonoBehaviour {
   }
 
   public void Death() {
-    StartCoroutine(DeathAnimation());
+    Instantiate(dead, transform.position, transform.rotation);
+    Destroy(gameObject);
     print("Dead");
   }
 
@@ -476,13 +477,5 @@ public class VehicleBody3D : MonoBehaviour {
         Gizmos.DrawWireSphere(wheel.ContactPointWS, 0.1f);
       }
     }
-  }
-
-  private IEnumerator DeathAnimation() {
-    dead.gameObject.SetActive(true);
-    dead.Play(0);
-    mesh.SetActive(false);
-    yield return new WaitForSeconds(1);
-    Destroy(gameObject);
   }
 }
