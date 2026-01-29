@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3425015907
+  GlobalObjectIdHash: 842341156
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -466,6 +466,8 @@ MonoBehaviour:
   mesh: {fileID: 7321432955253808162}
   dead: {fileID: 4370184857602522169, guid: 3bcd359523265fd47aec80ec95c1d3e5, type: 3}
   camera: {fileID: 0}
+  defaultStats: {fileID: 11400000, guid: 95cd3e783b45ee344880169c3e32783d, type: 2}
+  defaultMesh: {fileID: 3763832328304344330, guid: 403b1b8bf6370974696fca5fee1eacf9, type: 3}
 --- !u!114 &4290250756180106090
 MonoBehaviour:
   m_ObjectHideFlags: 0

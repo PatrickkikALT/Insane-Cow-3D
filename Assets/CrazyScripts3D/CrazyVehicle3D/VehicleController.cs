@@ -12,16 +12,18 @@ public class VehicleController : NetworkBehaviour {
   private float _steer;
   private bool _handbrake;
   private VehicleBody3D _vehicle;
+  private Rigidbody _rb;
 
   private void Start() {
     _vehicle = GetComponent<VehicleBody3D>();
+    _rb = GetComponent<Rigidbody>();
   }
 
   public void SetStats(MaskStat stats) {
     _maxEngineForce = stats.maxEngineForce;
     _maxBrakeForce = stats.maxBrakeForce;
     _maxSteeringAngle = stats.maxSteeringAngle;
-    GetComponent<Rigidbody>().mass = stats.rigidbodyMass;
+    _rb.mass = stats.rigidbodyMass;
   }
 
   public void Throttle(InputAction.CallbackContext ctx) {

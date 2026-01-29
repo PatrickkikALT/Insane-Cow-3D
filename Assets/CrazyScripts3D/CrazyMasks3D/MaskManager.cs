@@ -1,16 +1,21 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MaskManager : NetworkBehaviour {
   
   [SerializeField] private GameObject[] maskPrefabs;
-
-  public override void OnNetworkSpawn() {
-    if (!IsServer) return;
-    SpawnRandomMask(Vector3.zero);
+  public static MaskManager Instance;
+  public void Awake() {
+    if (Instance && Instance != this) {
+      Destroy(gameObject);
+      return;
+    }
+    Instance = this;
   }
   
-  private void SpawnRandomMask(Vector3 position) {
+  public void SpawnRandomMask(Vector3 position) {
     if (!IsServer) return;
     
     GameObject maskPrefab = maskPrefabs[Random.Range(0, maskPrefabs.Length)];

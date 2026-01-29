@@ -9,8 +9,13 @@ public class Mask : NetworkBehaviour {
   public bool equipped;
 
   public string maskName;
+
+  private Collider _collider;
+  private Renderer _renderer;
   private void Start() {
-    StartCoroutine(SpinCoroutine());
+    _collider = GetComponent<Collider>();
+    _renderer = GetComponent<Renderer>();
+    StartCoroutine(OnSpawnCoroutine());
   }
 
   public void OnTriggerEnter(Collider collision) {
@@ -64,10 +69,10 @@ public class Mask : NetworkBehaviour {
     return;
   }
 
-  public IEnumerator SpinCoroutine() {
-    while (!equipped) {
-      transform.Rotate(0, 1, 0);
-      yield return null;
-    }
+  public IEnumerator OnSpawnCoroutine() {
+    if (equipped) yield break;
+    _collider.enabled = false;
+    yield return new WaitForSeconds(1f);
+    _collider.enabled = true;
   }
 }

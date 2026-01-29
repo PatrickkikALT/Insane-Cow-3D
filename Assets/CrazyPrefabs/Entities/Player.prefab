@@ -122,6 +122,8 @@ MonoBehaviour:
   mesh: {fileID: 3176299778933379971}
   dead: {fileID: 4370184857602522169, guid: 3bcd359523265fd47aec80ec95c1d3e5, type: 3}
   camera: {fileID: 1004510719162197766}
+  defaultStats: {fileID: 11400000, guid: 95cd3e783b45ee344880169c3e32783d, type: 2}
+  defaultMesh: {fileID: 3763832328304344330, guid: 403b1b8bf6370974696fca5fee1eacf9, type: 3}
 --- !u!114 &4885811460047650822
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8940068170014191315}
   - component: {fileID: 4997252370912390301}
   - component: {fileID: 8454004211025108486}
-  - component: {fileID: 7847612301670537739}
+  - component: {fileID: -366788757259027527}
   m_Layer: 0
   m_Name: ElephantMask
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.61689, y: 1.247, z: 1.18354}
-  m_LocalScale: {x: 3.2362, y: 3.2362, z: 3.2362}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb4a25a4574fe684bb45165c4b835dca, type: 2}
+  - {fileID: 2100000, guid: 23e96e96a8246de4f9ef75c8dbf02030, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &7847612301670537739
+--- !u!114 &-366788757259027527
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,11 +147,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3324394321413884890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886f4adc80974c94598a258ef8b6d104, type: 3}
+  m_Script: {fileID: 11500000, guid: a5dd594e8d6556a458759335c2b166a5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChickenMask
+  m_EditorClassIdentifier: Assembly-CSharp::Mask
   ShowTopMostFoldoutHeaderGroup: 1
-  meshToTransform: {fileID: 919132149155446097, guid: 5b1ecc726e9f69a4fbf45afefabf778e, type: 3}
+  meshToTransform: {fileID: 6940617548423029047, guid: 771425b7b1e0a264a86cafa580087f08, type: 3}
   stats: {fileID: 11400000, guid: 723f21d63585d1547b9f9fde24d96d26, type: 2}
   equipped: 0
-  maskName: ElephantMask
+  maskName: Elephant

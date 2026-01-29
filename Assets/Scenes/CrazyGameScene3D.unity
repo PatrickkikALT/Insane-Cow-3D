@@ -1485,7 +1485,7 @@ GameObject:
   - component: {fileID: 166888819}
   - component: {fileID: 166888820}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: MaskManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1531,6 +1531,10 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   maskPrefabs:
   - {fileID: 3324394321413884890, guid: a7b01247c80432448b208d6bb3e4a9e0, type: 3}
+  - {fileID: 4848920637465026082, guid: 4ad96530bc0fefc42a54712c63a08119, type: 3}
+  - {fileID: 2280007973444848687, guid: 706df89585626804f8768dfd33a59baf, type: 3}
+  - {fileID: 7574538403726100729, guid: d5530660d6fe85b46ae81790962ff5ef, type: 3}
+  - {fileID: 7253617062358902775, guid: 0d936877f20476244884a791c902f98c, type: 3}
 --- !u!4 &166888821
 Transform:
   m_ObjectHideFlags: 0
@@ -2604,7 +2608,7 @@ MonoBehaviour:
   botPrefab: {fileID: 6775203678248194239, guid: 7520d42c33c6f6e49941f2265bd38a55, type: 3}
   spawnBox:
     BoxPos: {x: 5.23, y: 0, z: -11}
-    BoxSize: {x: 64.3, y: 0.35, z: 58.5}
+    BoxSize: {x: 47.8, y: 0.35, z: 41.9}
     GizmoColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!4 &223103947
 Transform:
@@ -6225,8 +6229,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   playerPrefab: {fileID: 1239541258085826158, guid: d52a5c48ed0feb44f8dda060380e4370, type: 3}
   spawnBox:
-    BoxPos: {x: 5.23, y: -2.04, z: -11}
-    BoxSize: {x: 64.3, y: 0.35, z: 58.5}
+    BoxPos: {x: -0.7, y: -17.07, z: -42.4}
+    BoxSize: {x: 64.3, y: 0.35, z: 63.1}
     GizmoColor: {r: 1, g: 0, b: 0, a: 1}
   spawnPoints:
   - {fileID: 186728631}

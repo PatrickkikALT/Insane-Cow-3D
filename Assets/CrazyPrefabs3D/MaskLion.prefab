@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -51,7 +63,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1d171e2c7e779da4fb6b33f21f519e36, type: 2}
+      objectReference: {fileID: 2100000, guid: 5a6291bd69002114ebbb1263b33ed8a7, type: 2}
     - target: {fileID: 919132149155446097, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
       propertyPath: m_Name
       value: MaskLion
@@ -59,5 +71,82 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7863180693185738865}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -639923462282369719}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1476989497208349089}
   m_SourcePrefab: {fileID: 100100000, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+--- !u!1 &4848920637465026082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e04f3a67fc0d2904d9219fb9ba2d8c2a, type: 3}
+  m_PrefabInstance: {fileID: 5731879944852923251}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7863180693185738865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4848920637465026082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 2285754620
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &-639923462282369719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4848920637465026082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd594e8d6556a458759335c2b166a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mask
+  ShowTopMostFoldoutHeaderGroup: 1
+  meshToTransform: {fileID: 7197713428132705867, guid: 78faf848838d2d148987c5a10b73d954, type: 3}
+  stats: {fileID: 11400000, guid: a522f8ebedf568b4bbd7d07f19d9b3c2, type: 2}
+  equipped: 0
+  maskName: TheLionDoesNotCareAboutGameBalance
+--- !u!65 &1476989497208349089
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4848920637465026082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.58167356, z: 0.3}
+  m_Center: {x: 0, y: -0.14083739, z: 0}

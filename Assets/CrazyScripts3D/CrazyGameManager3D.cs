@@ -56,4 +56,9 @@ public class CrazyGameManager3D : NetworkBehaviour {
     NetworkObject netObj = playerObject.GetComponent<NetworkObject>();
     netObj.SpawnAsPlayerObject(clientId);
   }
+  
+  private void OnDrawGizmos() {
+    Gizmos.color = spawnBox.GizmoColor;
+    Gizmos.DrawWireCube(spawnBox.BoxPos + transform.position, spawnBox.BoxSize);
+  }
 }

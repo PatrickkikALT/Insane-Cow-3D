@@ -8,46 +8,13 @@ using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody))]
 public class VehicleBody3D : NetworkBehaviour {
-  private struct VehicleWheelContactPoint {
-    public Rigidbody body1;
-    public Vector3 frictionPositionWorld;
-    public Vector3 frictionDirectionWorld;
-    public float maxImpulse;
-    public float jacDiagABInv;
-
-    public VehicleWheelContactPoint(Rigidbody vehicleBody, Rigidbody groundBody, Vector3 frictionPosWorld,
-      Vector3 frictionDirWorld, float maxImp) {
-      body1 = groundBody;
-      frictionPositionWorld = frictionPosWorld;
-      frictionDirectionWorld = frictionDirWorld;
-      maxImpulse = maxImp;
-
-      float denom0 = 0;
-      float denom1 = 0;
-
-      if (vehicleBody) {
-        Vector3 r0 = frictionPosWorld - vehicleBody.worldCenterOfMass;
-        Vector3 c0 = Vector3.Cross(r0, frictionDirWorld);
-        Vector3 vec = vehicleBody.inertiaTensorRotation * Vector3.Scale(vehicleBody.inertiaTensor,
-          Quaternion.Inverse(vehicleBody.inertiaTensorRotation) * c0);
-        vec = Vector3.Cross(vec, r0);
-        denom0 = vehicleBody.mass > 0 ? (1f / vehicleBody.mass) : 0;
-        denom0 += Vector3.Dot(frictionDirWorld, vec);
-      }
-
-      float relaxation = 1f;
-      jacDiagABInv = relaxation / (denom0 + denom1);
-    }
-  }
-
-  [Header("Motion Controls")] [SerializeField]
-  private float engineForce;
-
+  [Header("Motion Controls")] 
+  [SerializeField] private float engineForce;
   [SerializeField] private float brake;
   [SerializeField] private float steering;
 
-  [Header("Physics Settings")] [SerializeField]
-  private LayerMask collisionMask = -1;
+  [Header("Physics Settings")] 
+  [SerializeField] private LayerMask collisionMask = -1;
 
   private Rigidbody _rigidBody;
   private Collider _collider;
@@ -70,11 +37,17 @@ public class VehicleBody3D : NetworkBehaviour {
   public int GetKills => _kills;
   private bool _isDead;
 
+  [Header("Defaults")] 
+  public MaskStat defaultStats;
+  public GameObject defaultMesh;
+  
+  private VehicleController _vehicleController;
+
   public override void OnNetworkSpawn() {
     _rigidBody = GetComponent<Rigidbody>();
     _rigidBody.isKinematic = !IsServer && !IsOwner;
     _collider = GetComponent<Collider>();
-    
+    _vehicleController = GetComponent<VehicleController>();
     foreach (VehicleWheel3D wheel in wheels) {
       if (wheel) wheel.Initialize(this);
     }
@@ -103,11 +76,8 @@ public class VehicleBody3D : NetworkBehaviour {
     if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(hitObjectId, out NetworkObject networkObject)) {
       if (networkObject.TryGetComponent(out Rigidbody rb)) {
         switch (maskType) {
-          case "ElephantMask":
+          case "TheLionDoesNotCareAboutGameBalance":
             rb.AddExplosionForce(50000, hitPosition, 10, 10f, ForceMode.Impulse);
-            break;
-          default:
-            print("Unknown mask type: " + maskType);
             break;
         }
       }
@@ -118,6 +88,7 @@ public class VehicleBody3D : NetworkBehaviour {
     if (!IsServer || _isDead) return;
     _isDead = true;
     Instantiate(dead, transform.position + transform.up, transform.rotation);
+    MaskManager.Instance.SpawnRandomMask(transform.position + transform.up);
     StartCoroutine(RespawnCoroutine());
     if (_lastHitPlayer.TryGetComponent(out VehicleBody3D vehicleBody)) {
       vehicleBody.AddKill();
@@ -135,10 +106,24 @@ public class VehicleBody3D : NetworkBehaviour {
     pos.y = 1;
     transform.position = pos; 
     transform.rotation = Quaternion.identity;
-    mesh.SetActive(true);
+    ReplaceMesh();
     _rigidBody.isKinematic = false;
     _collider.enabled = true;
     _isDead = false;
+  }
+
+  private void ReplaceMesh() {
+    Vector3 pos = transform.position;
+    Quaternion rot = transform.rotation;
+      
+    GameObject obj = Instantiate(defaultMesh, pos, rot);
+    GameObject oldObj = mesh;
+      
+    obj.transform.SetParent(oldObj.transform.parent);
+    obj.transform.localScale = oldObj.transform.localScale;
+    Destroy(oldObj);
+    mesh = obj;
+    _vehicleController.SetStats(defaultStats);
   }
 
   private void FixedUpdate() {
