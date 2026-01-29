@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a02ac9d00414ebaa2127c74ed842ba0, type: 3}
   m_Name: Fih
   m_EditorClassIdentifier: Assembly-CSharp::MaskStat
-  maxEngineForce: 20
+  maxEngineForce: 100
   maxBrakeForce: 100
   maxSteeringAngle: 30
   cameraPosition: {x: 0, y: 2.7, z: -2.5}

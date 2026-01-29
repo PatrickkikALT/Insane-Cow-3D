@@ -123,7 +123,9 @@ public class VehicleBody3D : NetworkBehaviour {
     obj.transform.localScale = oldObj.transform.localScale;
     Destroy(oldObj);
     mesh = obj;
-    _vehicleController.SetStats(defaultStats);
+    if (_vehicleController) {
+      _vehicleController.SetStats(defaultStats);
+    }
   }
 
   private void FixedUpdate() {
