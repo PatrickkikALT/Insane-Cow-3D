@@ -21,38 +21,38 @@ public class BotAI : NetworkBehaviour {
     // ONLY the server should process AI steering and physics application
     if (!IsServer || !IsSpawned) return;
 
-    bool charge = CastRay(0f);
-    bool left = CastRay(nearSideAngle);
-    bool right = CastRay(-nearSideAngle);
-    bool cleft = CastRay(farSideAngle);
-    bool cright = CastRay(-farSideAngle);
-
-    float steering;
-    float engineForce = -1000f;
-
-    if (charge) {
-      steering = 0f;
-    }
-    else if (cleft) {
-      steering = 0.5f;
-    }
-    else if (cright) {
-      steering = -0.5f;
-    }
-    else if (left) {
-      steering = 0.2f;
-    }
-    else if (right) {
-      steering = -0.2f;
-    }
-    else {
-      steering = 0f;
-    }
-
-    // AI communicates directly with the body on the server, 
-    // bypassing the need for ServerRpcs used by players.
-    _vehicle.Steering = steering;
-    _vehicle.EngineForce = engineForce;
+    // bool charge = CastRay(0f);
+    // bool left = CastRay(nearSideAngle);
+    // bool right = CastRay(-nearSideAngle);
+    // bool cleft = CastRay(farSideAngle);
+    // bool cright = CastRay(-farSideAngle);
+    //
+    // float steering;
+    // float engineForce = -1000f;
+    //
+    // if (charge) {
+    //   steering = 0f;
+    // }
+    // else if (cleft) {
+    //   steering = 0.5f;
+    // }
+    // else if (cright) {
+    //   steering = -0.5f;
+    // }
+    // else if (left) {
+    //   steering = 0.2f;
+    // }
+    // else if (right) {
+    //   steering = -0.2f;
+    // }
+    // else {
+    //   steering = 0f;
+    // }
+    //
+    // // AI communicates directly with the body on the server, 
+    // // bypassing the need for ServerRpcs used by players.
+    // _vehicle.Steering = steering;
+    // _vehicle.EngineForce = engineForce;
   }
 
   private bool CastRay(float angleOffset) {

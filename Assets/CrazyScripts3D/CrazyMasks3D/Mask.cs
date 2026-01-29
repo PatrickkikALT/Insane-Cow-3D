@@ -1,41 +1,71 @@
 using System;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Mask : MonoBehaviour {
+public class Mask : NetworkBehaviour {
   public GameObject meshToTransform;
   public MaskStat stats;
+  public bool equipped;
 
+  public string maskName;
   private void Start() {
     StartCoroutine(SpinCoroutine());
   }
 
   public void OnTriggerEnter(Collider collision) {
+    if (!IsServer) return;
+    
     if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
       EquipMask(collision);
     }
   }
 
   public virtual void EquipMask(Collider collision) {
-    Vector3 pos = collision.transform.position;
-    Quaternion rot = collision.transform.rotation;
+    if (!IsServer) return;
     
-    GameObject obj = Instantiate(meshToTransform, pos, rot);
-    VehicleBody3D body = collision.gameObject.GetComponent<VehicleBody3D>();
-    GameObject oldObj = body.mesh;
-    body.onHit += HitEffect;
-    obj.transform.SetParent(oldObj.transform.parent);
-    obj.transform.localScale = oldObj.transform.localScale;
-    Destroy(oldObj);
-    Destroy(GetComponent<BoxCollider>());
-    GetComponent<MeshRenderer>().enabled = false;
+    if (collision.gameObject.TryGetComponent(out VehicleBody3D body)) {
+      EquipMaskClientRpc(body.NetworkObjectId, GetType().Name);
+      GetComponent<NetworkObject>().Despawn();
+    }
   }
+  
+  [ClientRpc]
+  protected void EquipMaskClientRpc(ulong vehicleNetworkId, string maskTypeName) {
+    if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(vehicleNetworkId, out NetworkObject vehicleNetObj)) {
+      if (!vehicleNetObj.TryGetComponent(out VehicleBody3D body)) return;
+      
+      Vector3 pos = body.transform.position;
+      Quaternion rot = body.transform.rotation;
+      
+      GameObject obj = Instantiate(meshToTransform, pos, rot);
+      GameObject oldObj = body.mesh;
+      
+      obj.transform.SetParent(oldObj.transform.parent);
+      obj.transform.localScale = oldObj.transform.localScale;
+      Destroy(oldObj);
+      body.mesh = obj;
+      
+      var component = body.gameObject.AddComponent(this.GetType());
+      if (component is Mask mask) {
+        mask.stats = this.stats;
+        mask.equipped = true;
+        mask.maskName = maskName;
+      }
+      
+      if (body.IsOwner) {
+        body.GetComponent<VehicleController>()?.SetStats(stats);
+        body.camera.transform.localPosition = stats.cameraPosition;
+      }
+    }
+  }
+  
   public virtual void HitEffect(GameObject hit) {
     return;
   }
 
   public IEnumerator SpinCoroutine() {
-    while (gameObject.activeSelf) {
+    while (!equipped) {
       transform.Rotate(0, 1, 0);
       yield return null;
     }

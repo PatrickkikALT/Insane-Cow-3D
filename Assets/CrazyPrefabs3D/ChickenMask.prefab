@@ -59,5 +59,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea101640c40d82142ae6a24e513584ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8841895623276968394}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea101640c40d82142ae6a24e513584ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1431301024176926743}
   m_SourcePrefab: {fileID: 100100000, guid: ea101640c40d82142ae6a24e513584ce, type: 3}
+--- !u!1 &7574538403726100729 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ea101640c40d82142ae6a24e513584ce, type: 3}
+  m_PrefabInstance: {fileID: 7340659971726194088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8841895623276968394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574538403726100729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 2844238057
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &1431301024176926743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574538403726100729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd594e8d6556a458759335c2b166a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mask
+  ShowTopMostFoldoutHeaderGroup: 1
+  meshToTransform: {fileID: 2668914126338875139, guid: eda02632ed6b1b544b5df9a9799bc733, type: 3}
+  stats: {fileID: 11400000, guid: 488f7b0db6e6d0846b1e3aaf002dc3c4, type: 2}
+  equipped: 0
+  maskName: FriedChicken

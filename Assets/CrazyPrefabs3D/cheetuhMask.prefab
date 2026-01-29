@@ -59,5 +59,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4012174b80024d45912100c047f4f5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6901013255917518637}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4012174b80024d45912100c047f4f5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6655741462413511856}
   m_SourcePrefab: {fileID: 100100000, guid: e4012174b80024d45912100c047f4f5b, type: 3}
+--- !u!1 &2280007973444848687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4012174b80024d45912100c047f4f5b, type: 3}
+  m_PrefabInstance: {fileID: 1397627687642607998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6901013255917518637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2280007973444848687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 13024606
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &6655741462413511856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2280007973444848687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5dd594e8d6556a458759335c2b166a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mask
+  ShowTopMostFoldoutHeaderGroup: 1
+  meshToTransform: {fileID: 1149455326337285123, guid: 29962a1e083c7254c9690594b1a37c1c, type: 3}
+  stats: {fileID: 11400000, guid: f2f7d948edce78d49927dccd3e31c5d8, type: 2}
+  equipped: 0
+  maskName: Cheeto

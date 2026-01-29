@@ -4,11 +4,11 @@ using UnityEngine;
 using FirePixel.Networking;
 using Unity.Mathematics;
 
-public class GameManager : NetworkBehaviour {
-  public static GameManager Instance { get; private set; }
+public class CrazyGameManager3D : NetworkBehaviour {
+  public static CrazyGameManager3D Instance { get; private set; }
 
   [SerializeField] private GameObject playerPrefab;
-  [SerializeField] private SpawnBox spawnBox;
+  public SpawnBox spawnBox;
   [SerializeField] private List<Transform> spawnPoints;
 
   private void Awake() {

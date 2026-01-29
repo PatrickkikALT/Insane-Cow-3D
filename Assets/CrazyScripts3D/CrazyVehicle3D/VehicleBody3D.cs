@@ -50,54 +50,99 @@ public class VehicleBody3D : NetworkBehaviour {
   private LayerMask collisionMask = -1;
 
   private Rigidbody _rigidBody;
+  private Collider _collider;
   public List<VehicleWheel3D> wheels = new();
 
   private List<Vector3> _forwardWS = new();
   private List<Vector3> _axle = new();
   private List<float> _forwardImpulse = new();
   private List<float> _sideImpulse = new();
-
   private const float SideFrictionStiffness = 1.0f;
   
   public GameObject mesh;
-  public delegate void HitEvent(GameObject hit);
-  public HitEvent onHit;
   
   public GameObject dead;
-
   public Camera camera;
+
+  private GameObject _lastHitPlayer;
+  private int _kills;
+  public void AddKill() => _kills++;
+  public int GetKills => _kills;
+  private bool _isDead;
 
   public override void OnNetworkSpawn() {
     _rigidBody = GetComponent<Rigidbody>();
-
-    // Owner predicts physics locally; Server simulates authoritatively.
-    // Non-owners (other players) set kinematic to just follow the network transform.
     _rigidBody.isKinematic = !IsServer && !IsOwner;
-
+    _collider = GetComponent<Collider>();
+    
     foreach (VehicleWheel3D wheel in wheels) {
       if (wheel) wheel.Initialize(this);
     }
-    
-    camera.gameObject.SetActive(IsOwner);
+
+    if (camera) {
+      camera.gameObject.SetActive(IsOwner);
+    }
   }
 
   public void OnCollisionEnter(Collision other) {
-    if (!IsServer) return; // Only trigger hit events on the server
-    if (other.gameObject.CompareTag("Entity")) {
-      onHit?.Invoke(other.gameObject);
+    if (!IsServer || _isDead) return;
+    if (other.gameObject.CompareTag("Entity") || other.gameObject != gameObject) {
+      if (TryGetComponent(out Mask mask)) {
+        if (other.gameObject.TryGetComponent(out NetworkObject hitNetObj)) {
+          mask.HitEffect(other.gameObject);
+          
+          ApplyMaskHitEffectClientRpc(mask.maskName, hitNetObj.NetworkObjectId, transform.position);
+        }
+      }
+    }
+    _lastHitPlayer = other.gameObject;
+  }
+  
+  [ClientRpc]
+  private void ApplyMaskHitEffectClientRpc(string maskType, ulong hitObjectId, Vector3 hitPosition) {
+    if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(hitObjectId, out NetworkObject networkObject)) {
+      if (networkObject.TryGetComponent(out Rigidbody rb)) {
+        switch (maskType) {
+          case "ElephantMask":
+            rb.AddExplosionForce(50000, hitPosition, 10, 10f, ForceMode.Impulse);
+            break;
+          default:
+            print("Unknown mask type: " + maskType);
+            break;
+        }
+      }
     }
   }
 
   public void Death() {
-    if (!IsServer) return;
-    
+    if (!IsServer || _isDead) return;
+    _isDead = true;
     Instantiate(dead, transform.position + transform.up, transform.rotation);
-    GetComponent<NetworkObject>().Despawn();
+    StartCoroutine(RespawnCoroutine());
+    if (_lastHitPlayer.TryGetComponent(out VehicleBody3D vehicleBody)) {
+      vehicleBody.AddKill();
+    }
     print("Dead");
   }
 
+  private IEnumerator RespawnCoroutine() {
+    _collider.enabled = false;
+    mesh.SetActive(false);
+    _rigidBody.isKinematic = true;
+    
+    yield return new WaitForSeconds(5f);
+    var pos = CrazyGameManager3D.Instance.spawnBox.GetRandomPosition(CrazyGameManager3D.Instance.transform.position);
+    pos.y = 1;
+    transform.position = pos; 
+    transform.rotation = Quaternion.identity;
+    mesh.SetActive(true);
+    _rigidBody.isKinematic = false;
+    _collider.enabled = true;
+    _isDead = false;
+  }
+
   private void FixedUpdate() {
-    if (!IsSpawned || (!IsServer && !IsOwner)) return;
+    if (!IsSpawned || (!IsServer && !IsOwner) || _isDead) return;
 
     float zRotation = transform.eulerAngles.z;
     if (zRotation > 180f) {
@@ -106,6 +151,7 @@ public class VehicleBody3D : NetworkBehaviour {
 
     if (Mathf.Abs(zRotation) >= 89f) {
       Death();
+      return;
     }
     float deltaTime = Time.fixedDeltaTime;
 

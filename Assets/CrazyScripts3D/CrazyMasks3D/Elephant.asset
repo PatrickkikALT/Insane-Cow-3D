@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a02ac9d00414ebaa2127c74ed842ba0, type: 3}
   m_Name: Elephant
   m_EditorClassIdentifier: Assembly-CSharp::MaskStat
-  maxEngineForce: 1000
+  maxEngineForce: 5000
   maxBrakeForce: 250
   maxSteeringAngle: 45
   cameraPosition: {x: 0, y: 5, z: -5}
-  rigidbodyMass: 500
+  rigidbodyMass: 1500
