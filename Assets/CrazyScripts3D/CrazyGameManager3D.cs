@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using FirePixel.Networking;
+using Unity.Mathematics;
 
 public class GameManager : NetworkBehaviour {
   public static GameManager Instance { get; private set; }
 
   [SerializeField] private GameObject playerPrefab;
   [SerializeField] private SpawnBox spawnBox;
-  [SerializeField] private Transform[] spawnPoints;
+  [SerializeField] private List<Transform> spawnPoints;
 
   private void Awake() {
     if (Instance && Instance != this) {
@@ -19,7 +21,11 @@ public class GameManager : NetworkBehaviour {
 
   public override void OnNetworkSpawn() {
     if (IsServer) {
-      
+      var obj = new GameObject();
+      for (int i = 0; i < NetworkManager.ConnectedClients.Count; i++) {
+        var trans = Instantiate(obj, spawnBox.GetRandomPosition(new Vector3(0, 0, 0)), Quaternion.identity).transform;
+        spawnPoints.Add(trans);
+      }
       SpawnAllPlayers();
       
       NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
@@ -43,7 +49,7 @@ public class GameManager : NetworkBehaviour {
   }
 
   private void SpawnPlayer(ulong clientId) {
-    int spawnIndex = (int)(clientId % (ulong)spawnPoints.Length);
+    int spawnIndex = (int)(clientId % (ulong)spawnPoints.Count);
     Vector3 spawnPosition = spawnPoints[spawnIndex].position;
 
     GameObject playerObject = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
