@@ -8,18 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CrazyMainMenu3D.unity
     guid: bb7de4d8f6a28b248941be498f0a54bf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CrazyLobby3D.unity
     guid: a9046960e12caff40a31192073a86b1f
-  - enabled: 1
-    path: Assets/Scenes/CrazyGameScene3D.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Login Screen.unity
     guid: fd9470fae8b5a6947ab4af8d3a1f2bdc
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 97273907b049273418e3cea2becd1853
+  - enabled: 1
+    path: Assets/Scenes/CrazyGameScene3D.unity
+    guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
