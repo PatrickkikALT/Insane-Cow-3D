@@ -81,6 +81,6 @@ public class Mask : NetworkBehaviour {
     }
 
     yield return new WaitForSeconds(1f);
-    _justSpawned = true;
+    _justSpawned = false;
   }
 }

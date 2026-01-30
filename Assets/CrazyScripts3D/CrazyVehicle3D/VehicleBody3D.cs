@@ -100,6 +100,9 @@ public class VehicleBody3D : NetworkBehaviour {
     _collider.enabled = false;
     mesh.SetActive(false);
     _rigidBody.isKinematic = true;
+    //move body away so it doesnt do weird physics bug
+    transform.position = new Vector3(0, 100, 0);
+    
     
     yield return new WaitForSeconds(5f);
     var pos = CrazyGameManager3D.Instance.spawnBox.GetRandomPosition(CrazyGameManager3D.Instance.transform.position);
