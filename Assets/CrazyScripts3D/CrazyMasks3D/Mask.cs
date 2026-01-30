@@ -12,7 +12,9 @@ public class Mask : NetworkBehaviour {
 
   private Collider _collider;
   private Renderer _renderer;
+  private bool _justSpawned;
   private void Start() {
+    _justSpawned = true;
     _collider = GetComponent<Collider>();
     _renderer = GetComponent<Renderer>();
     StartCoroutine(OnSpawnCoroutine());
@@ -20,7 +22,7 @@ public class Mask : NetworkBehaviour {
 
   public void OnTriggerEnter(Collider collision) {
     if (!IsServer) return;
-    
+    if (_justSpawned) return;
     if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
       EquipMask(collision);
     }
@@ -72,12 +74,13 @@ public class Mask : NetworkBehaviour {
   public IEnumerator OnSpawnCoroutine() {
     if (equipped) {
       AudioSource source = gameObject.GetComponent<AudioSource>();
+      source.Stop();
       source.clip = stats.clip;
       source.Play(0); 
       yield break;
     }
-    _collider.enabled = false;
+
     yield return new WaitForSeconds(1f);
-    _collider.enabled = true;
+    _justSpawned = true;
   }
 }

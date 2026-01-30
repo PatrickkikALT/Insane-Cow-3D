@@ -126,6 +126,10 @@ public class VehicleBody3D : NetworkBehaviour {
     if (_vehicleController) {
       _vehicleController.SetStats(defaultStats);
     }
+
+    if (camera) {
+      camera.transform.position = defaultStats.cameraPosition;
+    }
   }
 
   private void FixedUpdate() {
