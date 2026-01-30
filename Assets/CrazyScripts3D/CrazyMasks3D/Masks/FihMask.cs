@@ -8,11 +8,11 @@ public class FihMask : Mask {
   public override void EquipMask(Collider collision) {
     base.EquipMask(collision);
     _body = GetComponent<VehicleBody3D>();
-    StartCoroutine(DrownCoroutine());
+    // StartCoroutine(DrownCoroutine());
   }
 
-  public IEnumerator DrownCoroutine() {
-    yield return new WaitForSeconds(timeTillDrown);
-    _body.Death();
-  }
+  // public IEnumerator DrownCoroutine() {
+  //   yield return new WaitForSeconds(timeTillDrown);
+  //   _body.Death();
+  // }
 }

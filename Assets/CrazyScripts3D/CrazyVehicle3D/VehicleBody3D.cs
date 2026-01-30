@@ -44,6 +44,7 @@ public class VehicleBody3D : NetworkBehaviour {
   private VehicleController _vehicleController;
 
   public override void OnNetworkSpawn() {
+    Application.targetFrameRate = 120;
     _rigidBody = GetComponent<Rigidbody>();
     _rigidBody.isKinematic = !IsServer && !IsOwner;
     _collider = GetComponent<Collider>();
@@ -89,7 +90,7 @@ public class VehicleBody3D : NetworkBehaviour {
     _isDead = true;
     Instantiate(dead, transform.position + transform.up, transform.rotation);
     MaskManager.Instance.SpawnRandomMask(transform.position + transform.up);
-    
+    Destroy(GetComponent<Mask>());
     DeathClientRpc();
     
     StartCoroutine(RespawnCoroutine());
@@ -111,7 +112,6 @@ public class VehicleBody3D : NetworkBehaviour {
     _collider.enabled = false;
     mesh.SetActive(false);
     _rigidBody.isKinematic = true;
-    transform.position = new Vector3(0, 100, 0);
     
     yield return new WaitForSeconds(5f);
     var pos = CrazyGameManager3D.Instance.spawnBox.GetRandomPosition(CrazyGameManager3D.Instance.transform.position);
