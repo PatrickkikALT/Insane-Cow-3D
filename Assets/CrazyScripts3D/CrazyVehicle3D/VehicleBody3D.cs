@@ -118,8 +118,7 @@ public class VehicleBody3D : NetworkBehaviour {
     pos.y = 1;
     transform.position = pos; 
     transform.rotation = Quaternion.identity;
-    ReplaceMesh();
-    
+
     RespawnClientRpc(pos);
     
     _rigidBody.isKinematic = false;
@@ -131,10 +130,12 @@ public class VehicleBody3D : NetworkBehaviour {
   private void RespawnClientRpc(Vector3 spawnPos) {
     transform.position = spawnPos;
     transform.rotation = Quaternion.identity;
+    ReplaceMesh();
     _rigidBody.isKinematic = false;
     _collider.enabled = true;
     _isDead = false;
   }
+  
 
   private void ReplaceMesh() {
     Vector3 pos = transform.position;
