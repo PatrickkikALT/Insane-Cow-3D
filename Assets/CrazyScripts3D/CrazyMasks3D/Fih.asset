@@ -15,5 +15,6 @@ MonoBehaviour:
   maxEngineForce: 100
   maxBrakeForce: 100
   maxSteeringAngle: 30
-  cameraPosition: {x: 0, y: 2.7, z: -2.5}
+  cameraPosition: {x: 0, y: 1.771, z: -1.657}
   rigidbodyMass: 15
+  clip: {fileID: 8300000, guid: 197f3bdc22dc6a342816553c2b3e0250, type: 3}

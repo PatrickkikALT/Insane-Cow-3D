@@ -8,7 +8,6 @@ public class Mask : NetworkBehaviour {
   public GameObject meshToTransform;
   public MaskStat stats;
   public bool equipped;
-
   public string maskName;
 
   private Collider _collider;
@@ -24,7 +23,6 @@ public class Mask : NetworkBehaviour {
     
     if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
       EquipMask(collision);
-      gameObject.GetComponent<AudioSource>().Play(0); 
     }
   }
 
@@ -72,7 +70,12 @@ public class Mask : NetworkBehaviour {
   }
 
   public IEnumerator OnSpawnCoroutine() {
-    if (equipped) yield break;
+    if (equipped) {
+      AudioSource source = gameObject.GetComponent<AudioSource>();
+      source.clip = stats.clip;
+      source.Play(0); 
+      yield break;
+    }
     _collider.enabled = false;
     yield return new WaitForSeconds(1f);
     _collider.enabled = true;

@@ -17,3 +17,4 @@ MonoBehaviour:
   maxSteeringAngle: 30
   cameraPosition: {x: 0, y: 2.7, z: -2.5}
   rigidbodyMass: 500
+  clip: {fileID: 8300000, guid: d1adc80f25844674d905d7cd928bd8c5, type: 3}

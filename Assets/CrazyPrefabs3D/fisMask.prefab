@@ -149,12 +149,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FihMask
   ShowTopMostFoldoutHeaderGroup: 1
-  meshToTransform: {fileID: 0}
-  stats: {fileID: 0}
+  meshToTransform: {fileID: 563611099807939361, guid: 6c24ba58d1ff16d458265ae3d5c0a054, type: 3}
+  stats: {fileID: 11400000, guid: 09f2b5428f263ee4498a9d470997a285, type: 2}
   equipped: 0
-  maskName: 
-  audio: {fileID: 0}
-  timeTillDrown: 0
+  maskName: Fih
+  audio: {fileID: -550724517732291321}
+  timeTillDrown: 15
 --- !u!82 &-550724517732291321
 AudioSource:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 197f3bdc22dc6a342816553c2b3e0250, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

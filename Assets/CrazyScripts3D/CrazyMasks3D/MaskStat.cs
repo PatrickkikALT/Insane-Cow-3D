@@ -7,4 +7,5 @@ public class MaskStat : ScriptableObject {
   public float maxSteeringAngle = 30f;
   public Vector3 cameraPosition = new Vector3(0, 2.7f, -2.5f);
   public float rigidbodyMass = 500;
+  public AudioClip clip;
 }

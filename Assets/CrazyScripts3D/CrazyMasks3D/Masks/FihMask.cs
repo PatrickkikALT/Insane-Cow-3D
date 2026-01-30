@@ -8,7 +8,6 @@ public class FihMask : Mask {
   public override void EquipMask(Collider collision) {
     base.EquipMask(collision);
     _body = GetComponent<VehicleBody3D>();
-    audio.Play();
     StartCoroutine(DrownCoroutine());
   }
 
