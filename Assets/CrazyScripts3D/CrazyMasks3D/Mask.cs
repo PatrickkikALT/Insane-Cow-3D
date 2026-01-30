@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mask : NetworkBehaviour {
@@ -23,6 +24,7 @@ public class Mask : NetworkBehaviour {
     
     if (collision.gameObject.layer == LayerMask.NameToLayer("Player")) {
       EquipMask(collision);
+      gameObject.GetComponent<AudioSource>().Play(0); 
     }
   }
 
