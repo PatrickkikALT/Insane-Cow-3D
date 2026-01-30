@@ -89,6 +89,9 @@ public class VehicleBody3D : NetworkBehaviour {
     _isDead = true;
     Instantiate(dead, transform.position + transform.up, transform.rotation);
     MaskManager.Instance.SpawnRandomMask(transform.position + transform.up);
+    
+    DeathClientRpc();
+    
     StartCoroutine(RespawnCoroutine());
     if (_lastHitPlayer.TryGetComponent(out VehicleBody3D vehicleBody)) {
       vehicleBody.AddKill();
@@ -96,24 +99,19 @@ public class VehicleBody3D : NetworkBehaviour {
     print("Dead");
   }
 
-  [ServerRpc(RequireOwnership = false)]
-  private void RespawnServerRpc() {
-    StartCoroutine(RespawnCoroutine());
-  }
-  
   [ClientRpc]
-  private void UpdateRespawnStateClientRpc() {
-    _collider.enabled = true;
-    mesh.SetActive(true);
-    _isDead = false;
+  private void DeathClientRpc() {
+    _collider.enabled = false;
+    mesh.SetActive(false);
+    _rigidBody.isKinematic = true;
+    _isDead = true;
   }
+
   private IEnumerator RespawnCoroutine() {
     _collider.enabled = false;
     mesh.SetActive(false);
     _rigidBody.isKinematic = true;
-    //move body away so it doesnt do weird physics bug
     transform.position = new Vector3(0, 100, 0);
-    
     
     yield return new WaitForSeconds(5f);
     var pos = CrazyGameManager3D.Instance.spawnBox.GetRandomPosition(CrazyGameManager3D.Instance.transform.position);
@@ -121,7 +119,21 @@ public class VehicleBody3D : NetworkBehaviour {
     transform.position = pos; 
     transform.rotation = Quaternion.identity;
     ReplaceMesh();
-    UpdateRespawnStateClientRpc();
+    
+    RespawnClientRpc(pos);
+    
+    _rigidBody.isKinematic = false;
+    _collider.enabled = true;
+    _isDead = false;
+  }
+
+  [ClientRpc]
+  private void RespawnClientRpc(Vector3 spawnPos) {
+    transform.position = spawnPos;
+    transform.rotation = Quaternion.identity;
+    _rigidBody.isKinematic = false;
+    _collider.enabled = true;
+    _isDead = false;
   }
 
   private void ReplaceMesh() {
