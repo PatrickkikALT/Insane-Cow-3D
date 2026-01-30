@@ -128,7 +128,7 @@ public class VehicleBody3D : NetworkBehaviour {
     }
 
     if (camera) {
-      camera.transform.position = defaultStats.cameraPosition;
+      camera.transform.localPosition = defaultStats.cameraPosition;
     }
   }
 
