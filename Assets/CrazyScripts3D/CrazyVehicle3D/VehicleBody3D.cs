@@ -96,6 +96,17 @@ public class VehicleBody3D : NetworkBehaviour {
     print("Dead");
   }
 
+  [ServerRpc(RequireOwnership = false)]
+  private void RespawnServerRpc() {
+    StartCoroutine(RespawnCoroutine());
+  }
+  
+  [ClientRpc]
+  private void UpdateRespawnStateClientRpc() {
+    _collider.enabled = true;
+    mesh.SetActive(true);
+    _isDead = false;
+  }
   private IEnumerator RespawnCoroutine() {
     _collider.enabled = false;
     mesh.SetActive(false);
@@ -110,9 +121,7 @@ public class VehicleBody3D : NetworkBehaviour {
     transform.position = pos; 
     transform.rotation = Quaternion.identity;
     ReplaceMesh();
-    _rigidBody.isKinematic = false;
-    _collider.enabled = true;
-    _isDead = false;
+    UpdateRespawnStateClientRpc();
   }
 
   private void ReplaceMesh() {
